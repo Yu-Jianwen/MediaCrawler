@@ -300,6 +300,22 @@ Thordata是全球代理IP解决方案提供商，支持大规模采集公共网�
 - 邮箱：`relakkes@gmail.com`
 
 
+## 📝 变更日志
+
+### 2025-08-09
+- 新增配置 `ENABLE_GET_IMAGES_ONLY`（仅在 `ENABLE_GET_MEIDAS=True` 时生效），用于“只下载图片，跳过视频”
+- 覆盖平台：小红书、抖音、B站（微博仅图片；快手/贴吧/知乎暂无视频下载逻辑）
+- 默认值：False，确保向后兼容
+- 使用方式：在 `config/base_config.py` 设置：
+```python
+ENABLE_GET_MEIDAS = True
+ENABLE_GET_IMAGES_ONLY = True
+```
+- 运行示例：
+```bash
+uv run main.py --platform xhs --lt qrcode --type search --save_data_option sqlite
+```
+
 ## 📚 参考
 
 - **小红书客户端**：[ReaJason 的 xhs 仓库](https://github.com/ReaJason/xhs)

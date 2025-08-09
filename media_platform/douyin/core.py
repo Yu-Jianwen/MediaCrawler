@@ -339,8 +339,10 @@ class DouYinCrawler(AbstractCrawler):
         # TODO: 抖音并没采用音视频分离的策略，故音频可从原视频中分离，暂不提取
         if note_download_url:
             await self.get_aweme_images(aweme_item)
-        else:
+        elif not config.ENABLE_GET_IMAGES_ONLY:
             await self.get_aweme_video(aweme_item)
+        else:
+            utils.logger.info(f"[DouYinCrawler.get_aweme_media] Images only mode enabled, skipping video download")
 
     async def get_aweme_images(self, aweme_item: Dict):
         """

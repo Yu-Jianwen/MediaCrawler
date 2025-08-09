@@ -10,7 +10,7 @@
 
 # 基础配置
 PLATFORM = "xhs"  # 平台，xhs | dy | ks | bili | wb | tieba | zhihu
-KEYWORDS = "编程副业,编程兼职"  # 关键词搜索配置，以英文逗号分隔
+KEYWORDS = "开窗器,电动窗"  # 关键词搜索配置，以英文逗号分隔
 LOGIN_TYPE = "qrcode"  # qrcode or phone or cookie
 COOKIES = ""
 CRAWLER_TYPE = (
@@ -38,7 +38,7 @@ SAVE_LOGIN_STATE = True
 # 是否启用CDP模式 - 使用用户现有的Chrome/Edge浏览器进行爬取，提供更好的反检测能力
 # 启用后将自动检测并启动用户的Chrome/Edge浏览器，通过CDP协议进行控制
 # 这种方式使用真实的浏览器环境，包括用户的扩展、Cookie和设置，大大降低被检测的风险
-ENABLE_CDP_MODE = False
+ENABLE_CDP_MODE = True
 
 # CDP调试端口，用于与浏览器通信
 # 如果端口被占用，系统会自动尝试下一个可用端口
@@ -77,7 +77,10 @@ CRAWLER_MAX_NOTES_COUNT = 200
 MAX_CONCURRENCY_NUM = 1
 
 # 是否开启爬媒体模式（包含图片或视频资源），默认不开启爬媒体
-ENABLE_GET_MEIDAS = False
+ENABLE_GET_MEIDAS = True
+
+# 新增：是否只下载图片，不下载视频（仅在 ENABLE_GET_MEIDAS=True 时生效）
+ENABLE_GET_IMAGES_ONLY = True
 
 # 是否开启爬评论模式, 默认开启爬评论
 ENABLE_GET_COMMENTS = True

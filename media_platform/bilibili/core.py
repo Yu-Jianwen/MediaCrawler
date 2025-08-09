@@ -206,7 +206,10 @@ class BilibiliCrawler(AbstractCrawler):
                         video_id_list.append(video_item.get("View").get("aid"))
                         await bilibili_store.update_bilibili_video(video_item)
                         await bilibili_store.update_up_info(video_item)
-                        await self.get_bilibili_video(video_item, semaphore)
+                        if config.ENABLE_GET_MEIDAS and not config.ENABLE_GET_IMAGES_ONLY:
+                            await self.get_bilibili_video(video_item, semaphore)
+                        elif config.ENABLE_GET_MEIDAS and config.ENABLE_GET_IMAGES_ONLY:
+                            utils.logger.info(f"[BilibiliCrawler] Images only mode enabled, skipping video download")
                 page += 1
                 await self.batch_get_video_comments(video_id_list)
 
@@ -281,7 +284,10 @@ class BilibiliCrawler(AbstractCrawler):
                                 video_id_list.append(video_item.get("View").get("aid"))
                                 await bilibili_store.update_bilibili_video(video_item)
                                 await bilibili_store.update_up_info(video_item)
-                                await self.get_bilibili_video(video_item, semaphore)
+                                if config.ENABLE_GET_MEIDAS and not config.ENABLE_GET_IMAGES_ONLY:
+                                    await self.get_bilibili_video(video_item, semaphore)
+                                elif config.ENABLE_GET_MEIDAS and config.ENABLE_GET_IMAGES_ONLY:
+                                    utils.logger.info(f"[BilibiliCrawler] Images only mode enabled, skipping video download")
 
                         page += 1
                         await self.batch_get_video_comments(video_id_list)
@@ -367,7 +373,10 @@ class BilibiliCrawler(AbstractCrawler):
                     video_aids_list.append(video_aid)
                 await bilibili_store.update_bilibili_video(video_detail)
                 await bilibili_store.update_up_info(video_detail)
-                await self.get_bilibili_video(video_detail, semaphore)
+                if config.ENABLE_GET_MEIDAS and not config.ENABLE_GET_IMAGES_ONLY:
+                    await self.get_bilibili_video(video_detail, semaphore)
+                elif config.ENABLE_GET_MEIDAS and config.ENABLE_GET_IMAGES_ONLY:
+                    utils.logger.info(f"[BilibiliCrawler] Images only mode enabled, skipping video download")
         await self.batch_get_video_comments(video_aids_list)
 
     async def get_video_info_task(self, aid: int, bvid: str, semaphore: asyncio.Semaphore) -> Optional[Dict]:

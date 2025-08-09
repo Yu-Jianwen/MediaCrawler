@@ -174,3 +174,4 @@ docs/.vitepress/cache
 # other gitignore
 .venv
 .refer
+.specstory/history/2025-08-08_03-24Z-检测电脑是否安装uv.md

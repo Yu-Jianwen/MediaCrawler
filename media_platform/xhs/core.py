@@ -425,10 +425,15 @@ class XiaoHongShuCrawler(AbstractCrawler):
 
     async def get_notice_media(self, note_detail: Dict):
         if not config.ENABLE_GET_MEIDAS:
-            utils.logger.info(f"[XiaoHongShuCrawler.get_notice_media] Crawling image mode is not enabled")
+            utils.logger.info(f"[XiaoHongShuCrawler.get_notice_media] Media download is not enabled")
             return
+        # 启用媒体下载时总是下载图片
         await self.get_note_images(note_detail)
-        await self.get_notice_video(note_detail)
+        # 仅当未启用仅图片模式时再下载视频
+        if not config.ENABLE_GET_IMAGES_ONLY:
+            await self.get_notice_video(note_detail)
+        else:
+            utils.logger.info(f"[XiaoHongShuCrawler.get_notice_media] Images only mode enabled, skipping video download")
 
     async def get_note_images(self, note_item: Dict):
         """
